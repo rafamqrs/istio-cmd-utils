@@ -9,6 +9,13 @@ $ oc patch smmr default -n Istio-system --type='json' -p '[{"op": "add", "path":
 ```
 $ oc patch dc/customer -p '{"spec":{"template":{"metadata":{"annotations":{"sidecar.istio.io/inject":"true"}}}}}' -n $OCP_NS
 ```
+### Enabling sidecard in differents deploys
+```console
+$ for p in $(oc get deploy -o custom-columns=SERVICES:.metadata.name);
+    do oc patch deploy/$p -p '{"spec":{"template":{"metadata":{"annotations":{"sidecar.istio.io/inject":"true"}}}}}'; 
+  done
+```
+
 
 ### Project to be used as sample
 ```
