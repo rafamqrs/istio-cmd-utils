@@ -1,12 +1,12 @@
 # Istio Commands Utils
 
 ### Adding a MemberRoll
-```
+```console
 $ oc patch smmr default -n Istio-system --type='json' -p '[{"op": "add", "path": "/spec/members", "value":["'"mynamespace"'"]}]'
 ```
 
 ### Enabling sidecard
-```
+```console
 $ oc patch dc/customer -p '{"spec":{"template":{"metadata":{"annotations":{"sidecar.istio.io/inject":"true"}}}}}' -n $OCP_NS
 ```
 ### Enabling sidecard in differents deploys
@@ -18,7 +18,7 @@ $ for p in $(oc get deploy -o custom-columns=SERVICES:.metadata.name);
 
 
 ### Project to be used as sample
-```
+```console
 oc new-app -l app=customer,version=v1 --name=customer --docker-image=quay.io/rcarrata/customer:quarkus -e VERSION=v1 -e  JAVA_OPTIONS='-Xms512m -Xmx512m -Djava.net.preferIPv4Stack=true'
 
 oc new-app -l app=partner,version=v1 --name=partner --docker-image=quay.io/rcarrata/partner:sb -e JAVA_OPTIONS='-Xms512m -Xmx512m -Djava.net.preferIPv4Stack=true' 
