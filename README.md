@@ -15,7 +15,10 @@ $ for p in $(oc get deploy -o custom-columns=SERVICES:.metadata.name);
     do oc patch deploy/$p -p '{"spec":{"template":{"metadata":{"annotations":{"sidecar.istio.io/inject":"true"}}}}}'; 
   done
 ```
-
+### Keep route working of Non-mesh services that need to be deployed within a service mesh enlisted namespace
+```console
+oc patch deployment messager-backend -p '{"spec":{"template":{"metadata":{"labels":{"maistra.io/expose-route":"true"}}}}}'
+```
 
 ### Project to be used as sample
 ```console
