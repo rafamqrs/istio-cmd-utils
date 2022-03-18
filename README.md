@@ -19,6 +19,10 @@ $ for p in $(oc get deploy -o custom-columns=SERVICES:.metadata.name);
 ```console
 oc patch deployment messager-backend -p '{"spec":{"template":{"metadata":{"labels":{"maistra.io/expose-route":"true"}}}}}'
 ```
+### Trigger a rollout for deployment
+```console
+    oc patch deployment/<deployment> -p '{"spec":{"template":{"metadata":{"annotations":{"kubectl.kubernetes.io/restartedAt": "'`date -Iseconds`'"}}}}}'
+```
 
 ### Project to be used as sample
 ```console
